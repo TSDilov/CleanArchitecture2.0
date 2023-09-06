@@ -6,6 +6,6 @@
         Task<IReadOnlyCollection<T>> GetAll();
         Task<T> Add(T entity);
         Task<T> Update(T entity);
-        Task Delete(int id);
+        Task<T> Delete(T entity);
     }
 }
