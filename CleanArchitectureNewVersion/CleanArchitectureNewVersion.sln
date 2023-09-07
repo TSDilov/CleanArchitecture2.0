@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hr.LeaveManagement.Domain",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hr.LeaveManagement.Application", "Hr.LeaveManagement.Application\Hr.LeaveManagement.Application.csproj", "{4C84FF59-FA46-4D96-BF40-14857A7A5136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hr.LeaveManagement.Persistance", "Hr.LeaveManagement.Persistance\Hr.LeaveManagement.Persistance.csproj", "{FDCE8CD3-5BE4-43D2-B709-B09C06A762A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hr.LeaveManagement.Persistence", "Hr.LeaveManagement.Persistance\Hr.LeaveManagement.Persistence.csproj", "{FDCE8CD3-5BE4-43D2-B709-B09C06A762A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hr.LeaveManagement.Infrastructure", "Hr.LeaveManagement.Infrastructure\Hr.LeaveManagement.Infrastructure.csproj", "{2FF7D286-1D7C-4651-A468-1DA74304315D}"
 EndProject
