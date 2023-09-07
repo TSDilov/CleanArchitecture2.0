@@ -2,6 +2,7 @@
 using Hr.LeaveManagement.Application.Contracts.Persistance;
 using Hr.LeaveManagement.Application.DTOs.LeaveRequest.Validators;
 using Hr.LeaveManagement.Application.DTOs.LeaveType.Validators;
+using Hr.LeaveManagement.Application.Exceptions;
 using Hr.LeaveManagement.Application.Features.LeaveRequests.Requests.Commands;
 using Hr.LeaveManagement.Domain;
 using MediatR;
@@ -27,7 +28,7 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
             var validationResult = await validator.ValidateAsync(request.LeaveRequestDto);
             if (!validationResult.IsValid)
             {
-                throw new Exception("Invalid LeaveType!");
+                throw new ValidationException(validationResult);
             }
 
             var leaveRequest = this.mapper.Map<LeaveRequest>(request.LeaveRequestDto);
