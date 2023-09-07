@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hr.LeaveManagement.Application.Contracts.Persistance;
+using Hr.LeaveManagement.Application.DTOs.LeaveRequest.Validators;
 using Hr.LeaveManagement.Application.Features.LeaveRequests.Requests.Commands;
 using MediatR;
 
@@ -9,15 +10,24 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
     {
         private readonly ILeaveRequestRepository leaveRequestRepository;
         private readonly IMapper mapper;
+        private readonly ILeaveTypeRepository leaveTypeRepository;
 
-        public UpdateLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository, IMapper mapper)
+        public UpdateLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository, IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
         {
             this.leaveRequestRepository = leaveRequestRepository;
             this.mapper = mapper;
+            this.leaveTypeRepository = leaveTypeRepository;
         }
 
         public async Task<Unit> Handle(UpdateLeaveRequestCommand request, CancellationToken cancellationToken)
         {
+            var validator = new UpdateLeaveRequestDtoValidator(this.leaveTypeRepository);
+            var validationResult = await validator.ValidateAsync(request.LeaveRequestDto);
+            if (!validationResult.IsValid)
+            {
+                throw new Exception("Invalid LeaveType!");
+            }
+
             var leaveRequest = await this.leaveRequestRepository.Get(request.Id);
             if (request.LeaveRequestDto != null)
             {
