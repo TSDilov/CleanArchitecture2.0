@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Hr.LeaveManagement.Application.Contracts.Infrastructure;
 using Hr.LeaveManagement.Application.Contracts.Persistence;
 using Hr.LeaveManagement.Application.DTOs.LeaveRequest.Validators;
 using Hr.LeaveManagement.Application.Features.LeaveRequests.Requests.Commands;
+using Hr.LeaveManagement.Application.Models;
 using Hr.LeaveManagement.Application.Responses;
 using Hr.LeaveManagement.Domain;
 using MediatR;
@@ -14,7 +16,10 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
         private readonly IMapper mapper;
         private readonly ILeaveTypeRepository leaveTypeRepository;
 
-        public CreateLeaveRequestCommandHandler(ILeaveRequestRepository leaveRequestRepository, IMapper mapper, ILeaveTypeRepository leaveTypeRepository)
+        public CreateLeaveRequestCommandHandler(
+            ILeaveRequestRepository leaveRequestRepository, 
+            IMapper mapper, 
+            ILeaveTypeRepository leaveTypeRepository)
         {
             this.leaveRequestRepository = leaveRequestRepository;
             this.mapper = mapper;
@@ -38,7 +43,8 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
 
             response.Success = true;
             response.Message = "Creation Successful";
-            response.Id = leaveRequest.Id;
+            response.Id = leaveRequest.Id;            
+
             return response;
         }
     }
