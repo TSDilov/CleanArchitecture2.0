@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Hr.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
 {
-    public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeavetypeCommand, Unit>
+    public class UpdateLeaveTypeCommandHandler : IRequestHandler<UpdateLeaveTypeCommand, Unit>
     {
         private readonly ILeaveTypeRepository leaveTypeRepository;
         private readonly IMapper mapper;
@@ -17,7 +17,7 @@ namespace Hr.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
             this.leaveTypeRepository = leaveTypeRepository;
             this.mapper = mapper;
         }
-        public async Task<Unit> Handle(UpdateLeavetypeCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             var validator = new UpdateLeaveTypeDtoValidator();
             var validationResult = await validator.ValidateAsync(request.LeaveTypeDto);

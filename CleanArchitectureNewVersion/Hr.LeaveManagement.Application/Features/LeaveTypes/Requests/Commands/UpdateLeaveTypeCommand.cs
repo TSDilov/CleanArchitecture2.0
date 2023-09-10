@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Hr.LeaveManagement.Application.Features.LeaveTypes.Requests.Commands
 {
-    public class UpdateLeavetypeCommand : IRequest<Unit>
+    public class UpdateLeaveTypeCommand : IRequest<Unit>
     {
         public LeaveTypeDto LeaveTypeDto { get; set; }
     }
