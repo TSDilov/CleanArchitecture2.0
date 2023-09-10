@@ -18,7 +18,7 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteLeaveRequestCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteLeaveRequestCommand request, CancellationToken cancellationToken)
         {
             var leaveRequest = await this.leaveRequestRepository.Get(request.Id);
             if (leaveRequest == null)
@@ -26,7 +26,6 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
                 throw new NotFoundException(nameof(LeaveRequest), request.Id);
             }
             await this.leaveRequestRepository.Delete(leaveRequest);
-            return Unit.Value;
         }
     }
 }

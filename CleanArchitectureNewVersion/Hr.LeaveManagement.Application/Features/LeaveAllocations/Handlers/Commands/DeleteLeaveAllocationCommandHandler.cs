@@ -18,7 +18,7 @@ namespace Hr.LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
             var leaveAllocation = await this.leaveAllocationRepository.Get(request.Id);
             if (leaveAllocation == null)
@@ -26,7 +26,6 @@ namespace Hr.LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
                 throw new NotFoundException(nameof(Hr.LeaveManagement.Domain.LeaveAllocation), request.Id);
             }
             await this.leaveAllocationRepository.Delete(leaveAllocation);
-            return Unit.Value;
         }
     }
 }

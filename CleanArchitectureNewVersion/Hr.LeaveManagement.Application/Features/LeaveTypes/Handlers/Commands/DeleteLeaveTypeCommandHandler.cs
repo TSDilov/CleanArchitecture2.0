@@ -18,16 +18,15 @@ namespace Hr.LeaveManagement.Application.Features.LeaveTypes.Handlers.Commands
             this.mapper = mapper;
         }
 
-        public async Task<Unit> Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
+        async Task IRequestHandler<DeleteLeaveTypeCommand>.Handle(DeleteLeaveTypeCommand request, CancellationToken cancellationToken)
         {
             var leaveType = await this.leaveTypeRepository.Get(request.Id);
-            if (leaveType == null) 
+            if (leaveType == null)
             {
                 throw new NotFoundException(nameof(LeaveType), request.Id);
             }
 
             await this.leaveTypeRepository.Delete(leaveType);
-            return Unit.Value;
         }
     }
 }
