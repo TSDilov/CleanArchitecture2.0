@@ -5,13 +5,13 @@ namespace Hr.LeaveManagement.MVC.Services.Base
 {
     public class BaseHttpService
     {
-        private readonly IClient client;
-        private readonly ILocalStorageService localStorage;
+        private readonly IClient httpClient;
+        private readonly ILocalStorageService localStorageService;
 
-        public BaseHttpService(IClient client, ILocalStorageService localStorage)
+        public BaseHttpService(IClient httpClient, ILocalStorageService localStorageService)
         {
-            this.client = client;
-            this.localStorage = localStorage;
+            this.httpClient = httpClient;
+            this.localStorageService = localStorageService;
         }
 
         protected Response<Guid> ConvertApiExceptions<Guid>(ApiException ex)
@@ -45,10 +45,10 @@ namespace Hr.LeaveManagement.MVC.Services.Base
 
         protected void AddBearerToken()
         {
-            if (this.localStorage.Exists("token"))
+            if (this.localStorageService.Exists("token"))
             {
-                this.client.HttpClient.DefaultRequestHeaders.Authorization = 
-                    new AuthenticationHeaderValue("Bearer", this.localStorage.GetStorageValue<string>("token"));
+                this.httpClient.HttpClient.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue("Bearer", this.localStorageService.GetStorageValue<string>("token"));
             }
         }
     }
