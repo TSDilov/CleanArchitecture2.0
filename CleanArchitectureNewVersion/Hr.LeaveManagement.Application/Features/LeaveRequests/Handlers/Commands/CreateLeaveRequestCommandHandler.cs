@@ -37,14 +37,16 @@ namespace Hr.LeaveManagement.Application.Features.LeaveRequests.Handlers.Command
                 response.Message = "Creation Failed";
                 response.Errors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
             }
+            else
+            {
+                var leaveRequest = this.mapper.Map<LeaveRequest>(request.LeaveRequestDto);
+                leaveRequest = await this.leaveRequestRepository.Add(leaveRequest);
 
-            var leaveRequest = this.mapper.Map<LeaveRequest>(request.LeaveRequestDto);
-            leaveRequest = await this.leaveRequestRepository.Add(leaveRequest);
-
-            response.Success = true;
-            response.Message = "Creation Successful";
-            response.Id = leaveRequest.Id;            
-
+                response.Success = true;
+                response.Message = "Creation Successful";
+                response.Id = leaveRequest.Id;
+            }
+                       
             return response;
         }
     }
