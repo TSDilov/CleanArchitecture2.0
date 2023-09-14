@@ -71,7 +71,7 @@ namespace Hr.LeaveManagement.MVC.Services
             return this.mapper.Map<List<LeaveTypeVM>>(leaveTypes);
         }
 
-        public async Task<Response<int>> UpdateLeaveType(int id, LeaveTypeVM leaveType)
+        public async Task<Response<int>> UpdateLeaveType(LeaveTypeVM leaveType)
         {
             try
             {
