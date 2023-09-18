@@ -1,18 +1,17 @@
 ﻿using Hr.LeaveManagement.Application.DTOs.LeaveAllocation;
-using Hr.LeaveManagement.Application.DTOs.LeaveType;
 using Hr.LeaveManagement.Application.Features.LeaveAllocation.Requests.Queries;
 using Hr.LeaveManagement.Application.Features.LeaveAllocations.Requests.Commands;
 using Hr.LeaveManagement.Application.Features.LeaveRequests.Requests.Queries;
-using Hr.LeaveManagement.Application.Features.LeaveTypes.Requests.Commands;
-using Hr.LeaveManagement.Application.Features.LeaveTypes.Requests.Queries;
 using Hr.LeaveManagement.Application.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.LeaveManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LeaveAllocationController : ControllerBase
     {
         private readonly IMediator mediator;
