@@ -19,7 +19,7 @@ namespace Hr.LeaveManagement.Identity
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
             services.AddDbContext<LeaveManagementIdentityDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("HrLeaveManagementConnectionString"),
+            options.UseSqlServer(configuration.GetConnectionString("HrLeaveManagementIdentityConnectionString"),
             x => x.MigrationsAssembly(typeof(LeaveManagementIdentityDbContext).Assembly.FullName)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()

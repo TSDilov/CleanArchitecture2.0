@@ -13,11 +13,11 @@ namespace Hr.LeaveManagement.Identity.Services
     public class AuthService : IAuthService
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly JwtSettings jwtSettings;
+        private readonly IOptionsMonitor<JwtSettings> jwtSettings;
         private readonly SignInManager<ApplicationUser> signInManager;
 
         public AuthService(UserManager<ApplicationUser> userManager,
-            JwtSettings jwtSettings,
+            IOptionsMonitor<JwtSettings> jwtSettings,
             SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
@@ -107,14 +107,14 @@ namespace Hr.LeaveManagement.Identity.Services
             .Union(userClaims)
             .Union(roleClaims);
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtSettings.Key));
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtSettings.CurrentValue.Key));
             var signInCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
 
             var jwtSecurityToken = new JwtSecurityToken(
-                issuer: this.jwtSettings.Issuer,
-                audience: this.jwtSettings.Audience,
+                issuer: this.jwtSettings.CurrentValue.Issuer,
+                audience: this.jwtSettings.CurrentValue.Audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(this.jwtSettings.DurationInMinutes),
+                expires: DateTime.UtcNow.AddMinutes(this.jwtSettings.CurrentValue.DurationInMinutes),
                 signingCredentials: signInCredentials);
 
             return jwtSecurityToken;
