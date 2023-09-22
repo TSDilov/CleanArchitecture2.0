@@ -22,9 +22,17 @@ namespace HR.LeaveManagement.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<AuthResponse>> Register(RegistrationRequest request)
+        public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
         {
-            return Ok(await this.authService.Register(request));
+            try
+            {
+                var response = await this.authService.Register(request);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
