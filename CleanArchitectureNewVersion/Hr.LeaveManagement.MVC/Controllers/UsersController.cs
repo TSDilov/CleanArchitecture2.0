@@ -48,8 +48,7 @@ namespace Hr.LeaveManagement.MVC.Controllers
                 var returnUrl = Url.Content("~/");
                 if (ModelState.IsValid)
                 {            
-                    await this.authService.Register(registration.FirstName,
-                        registration.LastName, registration.UserName, registration.Email, registration.Password);                 
+                    await this.authService.Register(registration);                 
                 }
 
                 return LocalRedirect(returnUrl);

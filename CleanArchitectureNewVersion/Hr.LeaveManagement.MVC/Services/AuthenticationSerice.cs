@@ -1,4 +1,6 @@
-﻿using Hr.LeaveManagement.MVC.Contracts;
+﻿using AutoMapper;
+using Hr.LeaveManagement.MVC.Contracts;
+using Hr.LeaveManagement.MVC.Models;
 using Hr.LeaveManagement.MVC.Services.Base;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -12,12 +14,17 @@ namespace Hr.LeaveManagement.MVC.Services
     public class AuthenticationService : BaseHttpService, IAuthenticationService
     {
         private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IMapper mapper;
         private JwtSecurityTokenHandler tokenHandler;
 
-        public AuthenticationService(IClient httpClient, ILocalStorageService localStorageService, IHttpContextAccessor httpContextAccessor)
+        public AuthenticationService(IClient httpClient, 
+            ILocalStorageService localStorageService, 
+            IHttpContextAccessor httpContextAccessor,
+            IMapper mapper)
             : base(httpClient, localStorageService)
         {
             this.httpContextAccessor = httpContextAccessor;
+            this.mapper = mapper;
             this.tokenHandler = new JwtSecurityTokenHandler();
         }
 
@@ -46,18 +53,11 @@ namespace Hr.LeaveManagement.MVC.Services
             }
         }
 
-        public async Task<bool> Register(string firstName, string LastName, string userName, string email, string password)
+        public async Task<bool> Register(RegisterVM registration)
         {
             try
             {
-                RegistrationRequest registrationRequest = new()
-                {
-                    FirstName = firstName,
-                    LastName = LastName,
-                    Email = email,
-                    UserName = userName,
-                    Password = password
-                };
+                RegistrationRequest registrationRequest = this.mapper.Map<RegistrationRequest>(registration);
 
                 var response = await this.httpClient.RegisterAsync(registrationRequest);
                 if (!string.IsNullOrEmpty(response.UserId))
