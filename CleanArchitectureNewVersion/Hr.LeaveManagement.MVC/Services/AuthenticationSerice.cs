@@ -62,6 +62,7 @@ namespace Hr.LeaveManagement.MVC.Services
                 var response = await this.httpClient.RegisterAsync(registrationRequest);
                 if (!string.IsNullOrEmpty(response.UserId))
                 {
+                    await Authenticate(registration.Email, registration.Password);
                     return true;
                 }
 

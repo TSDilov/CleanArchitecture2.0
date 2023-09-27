@@ -3,6 +3,7 @@ using Hr.LeaveManagement.Application.Contracts.Persistence;
 using Hr.LeaveManagement.Application.DTOs.LeaveAllocation.Validators;
 using Hr.LeaveManagement.Application.Exceptions;
 using Hr.LeaveManagement.Application.Features.LeaveAllocations.Requests.Commands;
+using Hr.LeaveManagement.Application.Responses;
 using MediatR;
 
 namespace Hr.LeaveManagement.Application.Features.LeaveAllocations.Handlers.Commands
@@ -21,6 +22,7 @@ namespace Hr.LeaveManagement.Application.Features.LeaveAllocations.Handlers.Comm
         }
         public async Task<Unit> Handle(UpdateLeaveAllocationCommand request, CancellationToken cancellationToken)
         {
+            var response = new BaseCommandResponse();
             var validator = new UpdateLeaveAllocationDtoValidator(this.leaveTypeRepository);
             var validationResult = await validator.ValidateAsync(request.LeaveAllocationDto);
             if (!validationResult.IsValid)
