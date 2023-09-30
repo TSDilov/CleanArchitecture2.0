@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hr.LeaveManagement.Application.Models.Identity;
 using Hr.LeaveManagement.MVC.Models;
 using Hr.LeaveManagement.MVC.Models.LeaveAllocation;
 using Hr.LeaveManagement.MVC.Models.LeaveRequest;
@@ -12,7 +13,7 @@ namespace Hr.LeaveManagement.MVC
         {
             CreateMap<CreateLeaveTypeDto,CreateLeaveTypeVM>().ReverseMap();
             CreateMap<LeaveTypeDto, LeaveTypeVM>().ReverseMap();
-            CreateMap<RegisterVM, RegistrationRequest>().ReverseMap();
+            CreateMap<RegisterVM, Hr.LeaveManagement.MVC.Services.Base.RegistrationRequest>().ReverseMap();
             CreateMap<LeaveAllocationDto, LeaveAllocationVM>().ReverseMap();
             CreateMap<CreateLeaveRequestDto, CreateLeaveRequestVM>().ReverseMap();
             CreateMap<LeaveRequestDto, LeaveRequestVM>()
@@ -25,6 +26,7 @@ namespace Hr.LeaveManagement.MVC
                .ForMember(q => q.StartDate, opt => opt.MapFrom(x => x.StartDate.DateTime))
                .ForMember(q => q.EndDate, opt => opt.MapFrom(x => x.EndDate.DateTime))
                .ReverseMap();
+            CreateMap<EmployeeVM, Hr.LeaveManagement.MVC.Services.Base.Employee>().ReverseMap();
         }
     }
 }

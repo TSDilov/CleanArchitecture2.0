@@ -32,6 +32,13 @@ namespace Hr.LeaveManagement.MVC.Services
             }
         }
 
+        public async Task<LeaveRequestVM> GetLeaveRequest(int id)
+        {
+            AddBearerToken();
+            var leaveRequest = await this.httpclient.LeaveRequestGETAsync(id);
+            return this.mapper.Map<LeaveRequestVM>(leaveRequest);
+        }
+
         public async Task<Response<int>> CreateLeaveRequest(CreateLeaveRequestVM leaveRequest)
         {
             try
@@ -68,7 +75,7 @@ namespace Hr.LeaveManagement.MVC.Services
         public async Task<AdminLeaveRequestViewVM> GetAdminLeaveRequestList()
         {
             AddBearerToken();
-            var leaveRequests = await this.httpclient.LeaveRequestAllAsync();
+            var leaveRequests = await this.httpclient.LeaveRequestAllAsync(isLoggedInUser: false);
 
             var model = new AdminLeaveRequestViewVM
             {
@@ -81,18 +88,11 @@ namespace Hr.LeaveManagement.MVC.Services
             return model;
         }
 
-        public async Task<LeaveRequestVM> GetLeaveRequest(int id)
-        {
-            AddBearerToken();
-            var leaveRequest = await this.httpclient.LeaveRequestGETAsync(id);
-            return this.mapper.Map<LeaveRequestVM>(leaveRequest);
-        }
-
         public async Task<EmployeeLeaveRequestViewVM> GetUserLeaveRequests()
         {
             AddBearerToken();
-            var leaveRequests = await this.httpclient.LeaveRequestAllAsync();
-            var allocations = await this.httpclient.LeaveAllocationAllAsync();
+            var leaveRequests = await this.httpclient.LeaveRequestAllAsync(isLoggedInUser: true);
+            var allocations = await this.httpclient.LeaveAllocationAllAsync(isLoggedInUser: true);
             var model = new EmployeeLeaveRequestViewVM
             {
                 LeaveAllocations = this.mapper.Map<List<LeaveAllocationVM>>(allocations),

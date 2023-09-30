@@ -13,6 +13,14 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("EmployeePolicy", policy =>
+        policy.RequireRole("Employee"));
+
+    options.AddPolicy("AdministratorPolicy", policy =>
+        policy.RequireRole("Administrator"));
+});
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddHttpClient<IClient, Client>((sp, client) =>
@@ -23,6 +31,8 @@ builder.Services.AddHttpClient<IClient, Client>((sp, client) =>
 builder.Services.AddTransient<IClient>((sp) => new Client("https://localhost:7077/", sp.GetService<HttpClient>()));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ILeaveTypeService, LeaveTypeService>();
+builder.Services.AddScoped<ILeaveAllocationService, LeaveAllocationService>();
+builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 builder.Services.AddControllersWithViews();
 

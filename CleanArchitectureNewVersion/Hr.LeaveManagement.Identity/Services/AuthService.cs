@@ -1,4 +1,5 @@
-﻿using Hr.LeaveManagement.Application.Contracts.Identity;
+﻿using Hr.LeaveManagement.Application.Constants;
+using Hr.LeaveManagement.Application.Contracts.Identity;
 using Hr.LeaveManagement.Application.Models.Identity;
 using Hr.LeaveManagement.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -102,7 +103,7 @@ namespace Hr.LeaveManagement.Identity.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim("uid", user.Id)
+                new Claim(CustomClaimTypes.Uid, user.Id)
             }
             .Union(userClaims)
             .Union(roleClaims);

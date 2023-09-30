@@ -18,5 +18,7 @@ namespace Hr.LeaveManagement.Domain
         public DateTime? DateActioned { get; set; }
         public bool? Approved { get; set; }
         public bool Canceled { get; set; }
+
+        public string RequestingEmployeeId { get; set; }
     }
 }

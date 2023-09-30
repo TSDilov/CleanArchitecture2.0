@@ -4,6 +4,7 @@ using Hr.LeaveManagement.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hr.LeaveManagement.Persistence.Migrations
 {
     [DbContext(typeof(HrLeaveManagementDbContext))]
-    partial class HrLeaveManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230927092659_AddingNewColumns")]
+    partial class AddingNewColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +39,6 @@ namespace Hr.LeaveManagement.Persistence.Migrations
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastModifiedBy")
                         .IsRequired()
@@ -108,10 +107,6 @@ namespace Hr.LeaveManagement.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RequestingEmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
@@ -160,20 +155,20 @@ namespace Hr.LeaveManagement.Persistence.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Administrator",
-                            DateCreated = new DateTime(2023, 9, 27, 13, 49, 43, 667, DateTimeKind.Local).AddTicks(5377),
+                            DateCreated = new DateTime(2023, 9, 27, 12, 26, 58, 931, DateTimeKind.Local).AddTicks(662),
                             DefaultDays = 10,
                             LastModifiedBy = "Administrator",
-                            LastModifiedDate = new DateTime(2023, 9, 27, 13, 49, 43, 667, DateTimeKind.Local).AddTicks(5379),
+                            LastModifiedDate = new DateTime(2023, 9, 27, 12, 26, 58, 931, DateTimeKind.Local).AddTicks(664),
                             Name = "Vacation"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "Administrator",
-                            DateCreated = new DateTime(2023, 9, 27, 13, 49, 43, 667, DateTimeKind.Local).AddTicks(5385),
+                            DateCreated = new DateTime(2023, 9, 27, 12, 26, 58, 931, DateTimeKind.Local).AddTicks(670),
                             DefaultDays = 5,
                             LastModifiedBy = "Administrator",
-                            LastModifiedDate = new DateTime(2023, 9, 27, 13, 49, 43, 667, DateTimeKind.Local).AddTicks(5386),
+                            LastModifiedDate = new DateTime(2023, 9, 27, 12, 26, 58, 931, DateTimeKind.Local).AddTicks(671),
                             Name = "Sick"
                         });
                 });
