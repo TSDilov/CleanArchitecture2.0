@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hr.LeaveManagement.MVC.Contracts;
+using Hr.LeaveManagement.MVC.Models;
 using Hr.LeaveManagement.MVC.Models.LeaveRequest;
 using Hr.LeaveManagement.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
