@@ -15,9 +15,6 @@ namespace Hr.LeaveManagement.MVC.Models.LeaveRequest
         [Required]
         public DateTime EndDate { get; set; }
 
-        [BindNever]
-        public SelectList LeaveTypes { get; set; }
-
         [Display(Name = "Leave Type")]
         [Required]
         public int LeaveTypeId { get; set; }

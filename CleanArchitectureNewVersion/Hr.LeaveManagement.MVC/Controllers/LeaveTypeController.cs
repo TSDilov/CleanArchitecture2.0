@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Hr.LeaveManagement.MVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public class LeaveTypeController : Controller
     {
         private readonly ILeaveTypeService leaveTypeService;

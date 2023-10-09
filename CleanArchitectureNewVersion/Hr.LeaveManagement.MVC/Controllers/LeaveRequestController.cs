@@ -28,10 +28,8 @@ namespace Hr.LeaveManagement.MVC.Controllers
         {
             var leaveTypes = await this.leaveTypeService.GetLeaveTypes();
             var leaveTypeItems = new SelectList(leaveTypes, "Id", "Name");
-            var model = new CreateLeaveRequestVM
-            {
-                LeaveTypes = leaveTypeItems
-            };
+            var model = new CreateLeaveRequestVM();
+            ViewBag.LeaveTypes = leaveTypeItems;
             return View(model);
         }
 
@@ -45,18 +43,19 @@ namespace Hr.LeaveManagement.MVC.Controllers
                 var response = await this.leaveRequestService.CreateLeaveRequest(leaveRequest);
                 if (response.Success)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "Home"); 
                 }
                 ModelState.AddModelError("", response.ValidationErrors);
             }
 
             var leaveTypes = await this.leaveTypeService.GetLeaveTypes();
             var leaveTypeItems = new SelectList(leaveTypes, "Id", "Name");
-            leaveRequest.LeaveTypes = leaveTypeItems;
+            ViewBag.LeaveTypes = leaveTypeItems;
 
             return View(leaveRequest);
         }
 
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Index()
         {
             var model = await this.leaveRequestService.GetAdminLeaveRequestList();
@@ -71,6 +70,7 @@ namespace Hr.LeaveManagement.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> ApproveRequest(int id, bool approved)
         {
             try
