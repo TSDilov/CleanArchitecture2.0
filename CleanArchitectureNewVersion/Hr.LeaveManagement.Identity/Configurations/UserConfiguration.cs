@@ -12,7 +12,7 @@ namespace Hr.LeaveManagement.Identity.Configurations
             var hasher = new PasswordHasher<ApplicationUser>();
             builder.HasData(
                 new ApplicationUser
-                { 
+                {
                     Id = "c6706ec3-ff2e-4e98-a7a9-49ec9010e2be",
                     Email = "admin@localhost.com",
                     NormalizedEmail = "ADMIN@LOCALHOST.COM",
@@ -34,8 +34,7 @@ namespace Hr.LeaveManagement.Identity.Configurations
                     NormalizedUserName = "USER@LOCALHOST.COM",
                     PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                     EmailConfirmed = true
-                }
-                );
+                });
         }
     }
 }
